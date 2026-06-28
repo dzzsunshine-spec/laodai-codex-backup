@@ -29,7 +29,7 @@ if [ -z "$latest_archive" ]; then
   exit 1
 fi
 
-mkdir -p "$MIRROR_DIR/backups" "$MIRROR_DIR/docs" "$MIRROR_DIR/scripts"
+mkdir -p "$MIRROR_DIR/backups" "$MIRROR_DIR/docs" "$MIRROR_DIR/scripts" "$MIRROR_DIR/launchd"
 
 archive_name="$(basename "$latest_archive")"
 encrypted_archive="$MIRROR_DIR/backups/$archive_name.enc"
@@ -59,6 +59,8 @@ cp "$PROJECT_ROOT/Codex每周自动备份方案.md" "$MIRROR_DIR/docs/"
 cp "$PROJECT_ROOT/GitHub双备份设置说明.md" "$MIRROR_DIR/docs/" 2>/dev/null || true
 cp "$PROJECT_ROOT/scripts/weekly_codex_backup.sh" "$MIRROR_DIR/scripts/"
 cp "$PROJECT_ROOT/scripts/sync_codex_backup_to_github.sh" "$MIRROR_DIR/scripts/"
+cp "$PROJECT_ROOT/scripts/backup_and_sync_codex.sh" "$MIRROR_DIR/scripts/" 2>/dev/null || true
+cp "$PROJECT_ROOT/launchd/com.laodai.codex-weekly-backup.plist" "$MIRROR_DIR/launchd/" 2>/dev/null || true
 cp "$latest_dir/EXCLUDED.txt" "$MIRROR_DIR/backups/$archive_name.EXCLUDED.txt"
 
 cat > "$MIRROR_DIR/README.md" <<EOF
