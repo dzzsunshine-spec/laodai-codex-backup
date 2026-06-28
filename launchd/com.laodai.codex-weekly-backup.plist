@@ -9,7 +9,7 @@
   <key>ProgramArguments</key>
   <array>
     <string>/bin/bash</string>
-    <string>/Users/daizhengzhou/Documents/老戴Ai备份外脑/scripts/backup_and_sync_codex.sh</string>
+    <string>/Users/daizhengzhou/Library/Scripts/laodai-codex-backup/backup_and_sync_codex.sh</string>
   </array>
 
   <key>StartCalendarInterval</key>

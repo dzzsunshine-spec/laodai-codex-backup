@@ -83,6 +83,10 @@ shasum -a 256 "$archive" > "$archive.sha256"
 
 rm -rf "$staging"
 
+if [ -n "${BACKUP_RESULT_FILE:-}" ]; then
+  printf '%s\n' "$archive" > "$BACKUP_RESULT_FILE"
+fi
+
 echo "Backup archive created:"
 echo "$archive"
 echo

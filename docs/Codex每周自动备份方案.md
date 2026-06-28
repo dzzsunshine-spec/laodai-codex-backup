@@ -51,6 +51,18 @@ chmod +x "/Users/daizhengzhou/Documents/老戴Ai备份外脑/scripts/weekly_code
 
 当前定时配置是每周一 09:30 自动执行“两边备份”：先生成本地原始备份，再把加密副本推送到 GitHub 私有仓库。
 
+定时任务实际调用的脚本会安装到：
+
+```text
+/Users/daizhengzhou/Library/Scripts/laodai-codex-backup/
+```
+
+定时任务使用的 GitHub 镜像目录会放在：
+
+```text
+/Users/daizhengzhou/Library/Application Support/laodai-codex-backup/github-private-mirror/
+```
+
 ```bash
 mkdir -p "$HOME/Library/LaunchAgents"
 cp "/Users/daizhengzhou/Documents/老戴Ai备份外脑/launchd/com.laodai.codex-weekly-backup.plist" "$HOME/Library/LaunchAgents/"

@@ -17,13 +17,17 @@ require_command() {
 require_command git
 require_command openssl
 
-latest_dir="$(find "$BACKUP_ROOT" -mindepth 1 -maxdepth 1 -type d | sort | tail -n 1)"
-if [ -z "$latest_dir" ]; then
-  echo "No local backup directory found in $BACKUP_ROOT" >&2
-  exit 1
+if [ -n "${LATEST_ARCHIVE:-}" ]; then
+  latest_archive="$LATEST_ARCHIVE"
+  latest_dir="$(dirname "$latest_archive")"
+else
+  latest_dir="$(find "$BACKUP_ROOT" -mindepth 1 -maxdepth 1 -type d | sort | tail -n 1)"
+  if [ -z "$latest_dir" ]; then
+    echo "No local backup directory found in $BACKUP_ROOT" >&2
+    exit 1
+  fi
+  latest_archive="$(find "$latest_dir" -maxdepth 1 -name 'codex-weekly-*.tar.gz' -type f | sort | tail -n 1)"
 fi
-
-latest_archive="$(find "$latest_dir" -maxdepth 1 -name 'codex-weekly-*.tar.gz' -type f | sort | tail -n 1)"
 if [ -z "$latest_archive" ]; then
   echo "No backup archive found in $latest_dir" >&2
   exit 1
@@ -55,13 +59,13 @@ openssl enc -aes-256-cbc -salt -pbkdf2 -iter 200000 \
 
 shasum -a 256 "$encrypted_archive" > "$encrypted_archive.sha256"
 
-cp "$PROJECT_ROOT/Codex每周自动备份方案.md" "$MIRROR_DIR/docs/"
+cp "$PROJECT_ROOT/Codex每周自动备份方案.md" "$MIRROR_DIR/docs/" 2>/dev/null || true
 cp "$PROJECT_ROOT/GitHub双备份设置说明.md" "$MIRROR_DIR/docs/" 2>/dev/null || true
-cp "$PROJECT_ROOT/scripts/weekly_codex_backup.sh" "$MIRROR_DIR/scripts/"
-cp "$PROJECT_ROOT/scripts/sync_codex_backup_to_github.sh" "$MIRROR_DIR/scripts/"
+cp "$PROJECT_ROOT/scripts/weekly_codex_backup.sh" "$MIRROR_DIR/scripts/" 2>/dev/null || true
+cp "$PROJECT_ROOT/scripts/sync_codex_backup_to_github.sh" "$MIRROR_DIR/scripts/" 2>/dev/null || true
 cp "$PROJECT_ROOT/scripts/backup_and_sync_codex.sh" "$MIRROR_DIR/scripts/" 2>/dev/null || true
 cp "$PROJECT_ROOT/launchd/com.laodai.codex-weekly-backup.plist" "$MIRROR_DIR/launchd/" 2>/dev/null || true
-cp "$latest_dir/EXCLUDED.txt" "$MIRROR_DIR/backups/$archive_name.EXCLUDED.txt"
+cp "$latest_dir/EXCLUDED.txt" "$MIRROR_DIR/backups/$archive_name.EXCLUDED.txt" 2>/dev/null || true
 
 cat > "$MIRROR_DIR/README.md" <<EOF
 # 老戴 Codex 加密备份镜像
