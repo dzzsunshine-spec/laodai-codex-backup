@@ -5,6 +5,7 @@ PROJECT_ROOT="${PROJECT_ROOT:-$HOME/Documents/老戴Ai备份外脑}"
 BACKUP_ROOT="${BACKUP_ROOT:-$PROJECT_ROOT/backups/codex-weekly}"
 MIRROR_DIR="${MIRROR_DIR:-$PROJECT_ROOT/github-private-mirror}"
 GITHUB_REMOTE_URL="${GITHUB_REMOTE_URL:-}"
+SSH_KEY_PATH="${SSH_KEY_PATH:-$HOME/.ssh/laodai_codex_backup_ed25519}"
 
 require_command() {
   if ! command -v "$1" >/dev/null 2>&1; then
@@ -116,6 +117,9 @@ else
 fi
 
 if git -C "$MIRROR_DIR" remote get-url origin >/dev/null 2>&1; then
+  if [ -f "$SSH_KEY_PATH" ]; then
+    export GIT_SSH_COMMAND="ssh -i $SSH_KEY_PATH -o IdentitiesOnly=yes -o StrictHostKeyChecking=accept-new"
+  fi
   git -C "$MIRROR_DIR" branch -M main
   git -C "$MIRROR_DIR" push -u origin main
 else

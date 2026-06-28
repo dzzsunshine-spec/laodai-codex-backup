@@ -83,7 +83,7 @@ chmod 600 "$HOME/.codex-backup-passphrase"
 
 ```bash
 CODEX_BACKUP_PASSPHRASE_FILE="$HOME/.codex-backup-passphrase" \
-GITHUB_REMOTE_URL="https://github.com/你的用户名/laodai-codex-backup.git" \
+GITHUB_REMOTE_URL="git@github.com:dzzsunshine-spec/laodai-codex-backup.git" \
 "/Users/daizhengzhou/Documents/老戴Ai备份外脑/scripts/sync_codex_backup_to_github.sh"
 ```
 
