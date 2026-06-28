@@ -51,6 +51,11 @@ chmod +x "/Users/daizhengzhou/Documents/老戴Ai备份外脑/scripts/weekly_code
 
 当前定时配置是每周一 09:30 自动执行“两边备份”：先生成本地原始备份，再把加密副本推送到 GitHub 私有仓库。
 
+备份结束后会通过 macOS 通知提醒：
+
+- 成功：提示本地备份和 GitHub 加密备份已完成。
+- 失败：提示检查 `weekly-backup-and-github-sync.err`。
+
 定时任务实际调用的脚本会安装到：
 
 ```text
