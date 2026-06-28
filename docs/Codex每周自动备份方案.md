@@ -29,6 +29,7 @@
 
 - `scripts/weekly_codex_backup.sh`
 - `scripts/sync_codex_backup_to_github.sh`
+- `scripts/backup_and_sync_codex.sh`
 - `launchd/com.laodai.codex-weekly-backup.plist`
 - `GitHub双备份设置说明.md`
 
@@ -48,7 +49,7 @@ chmod +x "/Users/daizhengzhou/Documents/老戴Ai备份外脑/scripts/weekly_code
 
 ## 设置每周自动运行
 
-当前定时配置是每周一 09:30 自动备份。
+当前定时配置是每周一 09:30 自动执行“两边备份”：先生成本地原始备份，再把加密副本推送到 GitHub 私有仓库。
 
 ```bash
 mkdir -p "$HOME/Library/LaunchAgents"
@@ -74,6 +75,7 @@ launchctl start com.laodai.codex-weekly-backup
 - 只同步加密后的备份包、Markdown 说明和脚本。
 - 不把完整会话和可能含敏感信息的原始压缩包直接推到 GitHub。
 - 具体设置见 `GitHub双备份设置说明.md`。
+- GitHub 同步以 Mac 端为主，不建议一开始在手机端折腾 Git 同步。
 
 第三层：云盘或硬盘冷备份
 
@@ -85,7 +87,32 @@ launchctl start com.laodai.codex-weekly-backup
 - 看 `backups/codex-weekly` 是否出现新的日期目录。
 - 打开 `MANIFEST.md`，确认包含 `codex/sessions`、`codex/memories`、`codex/skills`、`codex/AGENTS.md`。
 - 用 `.sha256` 校验压缩包没有损坏。
+- 打开 GitHub 私有仓库，确认只出现 `.tar.gz.enc`，没有未加密的 `.tar.gz`。
 - 每月至少做一次恢复演练：解压到临时目录，确认关键文件存在。
+
+## GitHub 上传边界
+
+不得上传：
+
+- 密码、API Key、1Password Secret Key。
+- 身份证、银行卡、合同原件。
+- 客户隐私明细、未脱敏财务数据。
+- 家庭敏感信息。
+- 任何无法承担泄露风险的资料。
+
+适合上传到私有仓库的低敏材料：
+
+- AI 协作宪法。
+- 风控边界和迁移保险箱摘要。
+- 表达风格、低敏项目档案、低敏人物关系摘要。
+- 重大经历方法论。
+- 新 Codex 或新 GPT 初始化提示词。
+
+频率规则：
+
+- 每周自动两边备份一次。
+- 重大系统更新后立即手动同步一次。
+- 每月至少额外导出压缩包到云盘或移动硬盘。
 
 ## 迁移到新 Codex 账号时的恢复顺序
 
