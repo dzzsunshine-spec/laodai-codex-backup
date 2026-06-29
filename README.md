@@ -11,13 +11,13 @@
 
 ## 最近一次同步
 
-- source_archive: codex-weekly-20260628-134734.tar.gz
-- synced_at: 2026-06-28T13:48:30+08:00
+- source_archive: codex-weekly-20260629-093222.tar.gz
+- synced_at: 2026-06-29T09:32:23+08:00
 
 ## 解密示例
 
 ```bash
 openssl enc -d -aes-256-cbc -pbkdf2 -iter 200000 \
-  -in backups/codex-weekly-20260628-134734.tar.gz.enc \
-  -out codex-weekly-20260628-134734.tar.gz
+  -in backups/codex-weekly-20260629-093222.tar.gz.enc \
+  -out codex-weekly-20260629-093222.tar.gz
 ```

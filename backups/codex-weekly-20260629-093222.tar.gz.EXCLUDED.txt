@@ -1,0 +1,10 @@
+Excluded by design:
+- ~/.codex/auth.json and account tokens
+- ~/.codex/*.sqlite, *.sqlite-wal, *.sqlite-shm runtime databases
+- ~/.codex/plugins/cache and other downloaded runtime caches
+- ~/.codex/.tmp, ~/.codex/tmp, ~/.codex/node_repl, ~/.codex/process_manager
+- ~/Library/Application Support/Codex browser profile state, including cookies
+
+Reason:
+This backup is for Codex logic, memory, skills, rules, sessions, and restoration context.
+Credentials should be stored separately in an encrypted password manager or encrypted vault.
