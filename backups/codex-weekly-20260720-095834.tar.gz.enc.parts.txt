@@ -1,0 +1,7 @@
+# Chunked encrypted backup
+
+source_archive: codex-weekly-20260720-095834.tar.gz
+chunk_size_mb: 90
+parts: 3
+reassembly: cat codex-weekly-20260720-095834.tar.gz.enc.part-* > codex-weekly-20260720-095834.tar.gz.enc
+verify: shasum -a 256 codex-weekly-20260720-095834.tar.gz.enc
