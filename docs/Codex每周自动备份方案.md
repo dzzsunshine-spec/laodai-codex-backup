@@ -93,6 +93,7 @@ launchctl start com.laodai.codex-weekly-backup
 - 不把完整会话和可能含敏感信息的原始压缩包直接推到 GitHub。
 - 具体设置见 `GitHub双备份设置说明.md`。
 - GitHub 同步以 Mac 端为主，不建议一开始在手机端折腾 Git 同步。
+- 当单个加密包超过 100MB 时，会自动切成多个小分片再上传。
 
 第三层：云盘或硬盘冷备份
 
@@ -105,6 +106,7 @@ launchctl start com.laodai.codex-weekly-backup
 - 打开 `MANIFEST.md`，确认包含 `codex/sessions`、`codex/memories`、`codex/skills`、`codex/AGENTS.md`。
 - 用 `.sha256` 校验压缩包没有损坏。
 - 打开 GitHub 私有仓库，确认只出现 `.tar.gz.enc`，没有未加密的 `.tar.gz`。
+- 如果看到 `.part-000`、`.part-001` 之类的文件，说明这是分片加密包，先拼接再解密。
 - 每月至少做一次恢复演练：解压到临时目录，确认关键文件存在。
 
 ## GitHub 上传边界

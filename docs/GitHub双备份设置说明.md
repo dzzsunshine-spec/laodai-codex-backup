@@ -82,6 +82,8 @@ https://github.com/你的用户名/laodai-codex-backup.git
 
 脚本会要求输入加密密码。这个密码必须保存好；没有它，GitHub 上的 `.enc` 文件无法恢复。
 
+如果单个加密包超过 GitHub 的 100MB 限制，脚本会自动把它切成多个 `part` 分片上传，单个分片都低于限制。
+
 ## 第四步：连接 GitHub 私有仓库
 
 把下面命令里的地址换成你的仓库地址：
@@ -140,6 +142,13 @@ openssl enc -d -aes-256-cbc -pbkdf2 -iter 200000 \
 
 ```bash
 tar -xzf codex-weekly-YYYYMMDD-HHMMSS.tar.gz
+```
+
+如果仓库里看到的是分片文件，先合并：
+
+```bash
+cat codex-weekly-YYYYMMDD-HHMMSS.tar.gz.enc.part-* > codex-weekly-YYYYMMDD-HHMMSS.tar.gz.enc
+shasum -a 256 codex-weekly-YYYYMMDD-HHMMSS.tar.gz.enc
 ```
 
 恢复顺序仍然是：先规则和配置，再技能，再记忆和会话。
